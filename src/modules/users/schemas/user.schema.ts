@@ -14,15 +14,6 @@ export class User {
     @Prop()
     password: string;
 
-    @Prop()
-    phone: string;
-
-    @Prop()
-    address: string;
-
-    @Prop()
-    image: string;
-
     @Prop({default: "USERS"})
     role: string;
 
@@ -32,12 +23,23 @@ export class User {
     @Prop({default: false})
     isActive: boolean;
 
-    @Prop()
-    codeId: string;
+    // @Prop()
+    // codeId: string;
+
+    // @Prop()
+    // codeExpired: Date;
 
     @Prop()
-    codeExpired: Date;
+    activationCode: string; // Mã dùng để kích hoạt tài khoản
 
+    @Prop()
+    activationCodeExpired: Date; // Hạn sử dụng của mã kích hoạt
+
+    @Prop()
+    resetPasswordCode: string; // Mã dùng để đổi mật khẩu
+
+    @Prop()
+    resetPasswordCodeExpired: Date; // Hạn sử dụng của mã đổi mật khẩu
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -1,19 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-
-
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    console.log(">> check createUserDto: ", createUserDto)
-    return this.usersService.create(createUserDto);
-  }
 
   @Get()
   async findAll(
@@ -21,16 +12,16 @@ export class UsersController {
     @Query("current") current: string,
     @Query("pageSize") pageSize: string,
   ) {
-    return this. usersService. findAll(query, +current, +pageSize);
+    return this.usersService.findAll(query, parseInt(current || '1'), parseInt(pageSize || '10'));
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+    return this.usersService.findOne(id);
   }
 
   @Patch()
-  update( @Body() updateUserDto: UpdateUserDto) {
+  async update(@Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(updateUserDto);
   }
 
